@@ -9,7 +9,11 @@ export default function Inspiration() {
   const session = useSession();
   console.log(session);
 
-  return session.status === "authenticated" ? <InspirationField /> : <Login />;
+  return (
+    <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
+      {session.status === "authenticated" ? <InspirationField /> : <Login />}
+    </main>
+  );
 }
 
 function InspirationField() {
