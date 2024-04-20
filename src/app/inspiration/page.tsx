@@ -1,8 +1,18 @@
 "use client";
 
 import type { FormEvent } from "react";
+import { useSession } from "next-auth/react";
+import Login from "../_components/Login";
+import Logout from "../_components/Logout";
 
 export default function Inspiration() {
+  const session = useSession();
+  console.log(session);
+
+  return session.status === "authenticated" ? <InspirationField /> : <Login />;
+}
+
+function InspirationField() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
   }
@@ -45,6 +55,7 @@ export default function Inspiration() {
           </button>
         </div>
       </form>
+      <Logout />
     </main>
   );
 }
