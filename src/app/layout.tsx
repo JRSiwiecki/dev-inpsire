@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "src/app/_components/navbar";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { NextAuthProvider } from "./_components/NextAuthProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,8 +26,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider>
-          <Navbar />
-          {children}
+          <NextAuthProvider>
+            <Navbar />
+            {children}
+          </NextAuthProvider>
         </TRPCReactProvider>
       </body>
     </html>
