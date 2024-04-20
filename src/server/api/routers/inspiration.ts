@@ -1,3 +1,9 @@
-import { createTRPCRouter } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
-export const inspirationRouter = createTRPCRouter({});
+export const inspirationRouter = createTRPCRouter({
+  generateInspiration: publicProcedure.query(() => {
+    return {
+      message: "take this",
+    };
+  }),
+});
