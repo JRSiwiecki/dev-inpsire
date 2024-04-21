@@ -1,9 +1,10 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { api } from "~/trpc/react";
 
-export default function GeneratedInspiration() {
+function GetInspiration() {
   const data = useSearchParams();
 
   const apiQuery = api.inspiration.generateInspiration.useQuery({
@@ -16,11 +17,19 @@ export default function GeneratedInspiration() {
   const isLoading = apiQuery.isFetching;
 
   return (
+    <p className="m-4 max-w-lg">
+      {isLoading ? "Generating your project idea" : response}
+    </p>
+  );
+}
+
+export default function GeneratedInspiration() {
+  return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
       <h1 className="bold text-6xl">Project Idea</h1>
-      <p className="m-4 max-w-lg">
-        {isLoading ? "Generating your project idea" : response}
-      </p>
+      <Suspense>
+        <GetInspiration />
+      </Suspense>
       <button className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600">
         Save Idea
       </button>
