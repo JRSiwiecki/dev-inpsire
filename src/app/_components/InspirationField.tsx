@@ -86,8 +86,15 @@ export default function InspirationField() {
       </form>
       <Logout />
       <h1 className="bold text-6xl">Project Idea</h1>
-      <p className="m-4 max-w-lg">
-        {isLoading ? "Generating your project idea" : response}
+      <p className="m-4 max-w-lg text-lg leading-relaxed">
+        {isLoading
+          ? "Generating your project idea"
+          : response.split("\n\n").map((paragraph, index) => (
+              <p key={index} className="my-1">
+                {<strong>{index + 1}. </strong>}
+                {paragraph}
+              </p>
+            ))}
       </p>
       <button className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600">
         Save Idea
