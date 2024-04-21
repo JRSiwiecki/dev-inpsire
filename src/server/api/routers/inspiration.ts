@@ -22,9 +22,9 @@ export const inspirationRouter = createTRPCRouter({
           {
             role: "system",
             content: `You are providing project ideas to people learning about or trying to 
-              get a job related to software. Output your response in JSON. 
-              There should be a project_idea key, a description key, a key_features key with a 
-              list of at least 5-10 features, and optional_features key with a list of 1-3 features.`,
+              get a job related to software.
+              There should be a project idea, a description, a key features  with a 
+              list of at least 5-10 features, and optional features with a list of 1-3 features.`,
           },
           {
             role: "user",
@@ -33,7 +33,6 @@ export const inspirationRouter = createTRPCRouter({
           },
         ],
         model: "gpt-3.5-turbo",
-        response_format: { type: "json_object" },
       });
 
       return {
