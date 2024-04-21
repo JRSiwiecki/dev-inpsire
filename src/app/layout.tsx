@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import Navbar from "src/app/_components/navbar";
+import Navbar from "~/app/_components/Navbar";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { NextAuthProvider } from "./_components/NextAuthProvider";
