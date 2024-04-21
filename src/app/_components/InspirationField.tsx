@@ -1,14 +1,19 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Logout from "./Logout";
-import { useRouter } from "next/navigation";
+import { api } from "~/trpc/react";
 
 export default function InspirationField() {
-  const router = useRouter();
   const [position, setPosition] = useState("");
   const [topic, setTopic] = useState("");
   const [technology, setTechnology] = useState("");
+  const [response, setResponse] = useState<string>("");
+
+  const inspirationGeneration =
+    api.inspiration.generateInspiration.useMutation();
+
+  const isLoading = inspirationGeneration.isPending;
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -17,10 +22,21 @@ export default function InspirationField() {
       return;
     }
 
-    router.push(
-      `/generated-inspiration?position=${position}&topic=${topic}&technology=${technology}`,
-    );
+    inspirationGeneration.mutate({
+      position,
+      topic,
+      technology,
+    });
   }
+
+  useEffect(() => {
+    if (
+      inspirationGeneration.isSuccess &&
+      inspirationGeneration.data?.message?.message?.content != null
+    ) {
+      setResponse(inspirationGeneration.data.message.message.content);
+    }
+  }, [inspirationGeneration.isSuccess, inspirationGeneration.data]);
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
@@ -69,6 +85,13 @@ export default function InspirationField() {
         </div>
       </form>
       <Logout />
+      <h1 className="bold text-6xl">Project Idea</h1>
+      <p className="m-4 max-w-lg">
+        {isLoading ? "Generating your project idea" : response}
+      </p>
+      <button className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600">
+        Save Idea
+      </button>
     </main>
   );
 }
