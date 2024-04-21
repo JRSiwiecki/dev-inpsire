@@ -1,10 +1,10 @@
 import OpenAI from "openai";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { env } from "~/env";
 import { z } from "zod";
 
 export const inspirationRouter = createTRPCRouter({
-  generateInspiration: publicProcedure
+  generateInspiration: protectedProcedure
     .input(
       z.object({
         position: z.string(),
