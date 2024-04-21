@@ -8,7 +8,7 @@ export default function InspirationField() {
   const [position, setPosition] = useState("");
   const [topic, setTopic] = useState("");
   const [technology, setTechnology] = useState("");
-  const [response, setResponse] = useState<string>("");
+  const [response, setResponse] = useState("");
 
   const inspirationGeneration =
     api.inspiration.generateInspiration.useMutation();
