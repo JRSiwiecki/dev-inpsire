@@ -12,7 +12,7 @@ export const inspirationRouter = createTRPCRouter({
         technology: z.string(),
       }),
     )
-    .query(async (opts) => {
+    .mutation(async (opts) => {
       const openai = new OpenAI({
         apiKey: env.OPENAI_API_KEY,
       });
