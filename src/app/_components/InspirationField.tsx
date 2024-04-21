@@ -52,6 +52,7 @@ export default function InspirationField() {
               name="position"
               id="position"
               className="text-black"
+              autoComplete="off"
               onChange={(event) => setPosition(event.target.value)}
             />
           </div>
@@ -64,6 +65,7 @@ export default function InspirationField() {
               name="topic"
               id="topic"
               className="text-black"
+              autoComplete="off"
               onChange={(event) => setTopic(event.target.value)}
             />
           </div>
@@ -76,6 +78,7 @@ export default function InspirationField() {
               name="technology"
               id="technology"
               className="text-black"
+              autoComplete="off"
               onChange={(event) => setTechnology(event.target.value)}
             />
           </div>
