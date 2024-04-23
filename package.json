@@ -21,6 +21,7 @@
     "@trpc/next": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
+    "@vercel/analytics": "^1.2.2",
     "next": "^14.2.1",
     "next-auth": "^4.24.6",
     "openai": "^4.38.2",
