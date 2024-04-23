@@ -33,8 +33,6 @@ export default function InspirationField() {
       topic,
       technology,
     });
-
-    setButtonDisabled(false);
   }
 
   function saveInspiration() {
@@ -58,6 +56,7 @@ export default function InspirationField() {
       inspirationGeneration.data?.message?.message?.content != null
     ) {
       setResponse(inspirationGeneration.data.message.message.content);
+      setButtonDisabled(false);
     }
   }, [inspirationGeneration.isSuccess, inspirationGeneration.data]);
 
