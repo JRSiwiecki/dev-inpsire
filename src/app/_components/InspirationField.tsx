@@ -12,7 +12,7 @@ export default function InspirationField() {
   const [topic, setTopic] = useState("");
   const [technology, setTechnology] = useState("");
   const [response, setResponse] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const inspirationGeneration =
     api.inspiration.generateInspiration.useMutation();
