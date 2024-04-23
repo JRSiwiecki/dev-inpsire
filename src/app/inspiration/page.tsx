@@ -1,7 +1,6 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import Login from "../_components/Login";
 
 import InspirationField from "../_components/InspirationField";
 
