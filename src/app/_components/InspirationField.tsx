@@ -3,8 +3,11 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Logout from "./Logout";
 import { api } from "~/trpc/react";
+import { useSession } from "next-auth/react";
 
 export default function InspirationField() {
+  const session = useSession();
+
   const [position, setPosition] = useState("");
   const [topic, setTopic] = useState("");
   const [technology, setTechnology] = useState("");
@@ -12,6 +15,8 @@ export default function InspirationField() {
 
   const inspirationGeneration =
     api.inspiration.generateInspiration.useMutation();
+
+  const inspirationSaver = api.inspiration.saveInspiration.useMutation();
 
   const isLoading = inspirationGeneration.isPending;
 
@@ -26,6 +31,19 @@ export default function InspirationField() {
       position,
       topic,
       technology,
+    });
+  }
+
+  function saveInspiration() {
+    const userId = session.data?.user.id;
+
+    if (response === "") {
+      return;
+    }
+
+    inspirationSaver.mutate({
+      userId: userId,
+      inspiration: response,
     });
   }
 
@@ -98,7 +116,10 @@ export default function InspirationField() {
               </p>
             ))}
       </p>
-      <button className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600">
+      <button
+        onClick={saveInspiration}
+        className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600"
+      >
         Save Idea
       </button>
     </main>
