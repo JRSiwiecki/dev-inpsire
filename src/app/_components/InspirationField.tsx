@@ -43,6 +43,9 @@ export default function InspirationField() {
 
     inspirationSaver.mutate({
       userId: userId,
+      position: position,
+      topic: topic,
+      technology: technology,
       inspiration: response,
     });
 
