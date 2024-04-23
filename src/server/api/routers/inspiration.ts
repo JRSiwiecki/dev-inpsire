@@ -60,6 +60,10 @@ export const inspirationRouter = createTRPCRouter({
           },
         });
 
+        if (user === null) {
+          return "User could not be found!";
+        }
+
         const inspiration = await db.inspiration.create({
           data: {
             user: {
@@ -69,7 +73,7 @@ export const inspirationRouter = createTRPCRouter({
           },
         });
 
-        return inspiration.id;
+        return inspiration.id as string;
       },
     ),
 });
