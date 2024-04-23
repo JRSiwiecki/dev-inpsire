@@ -91,10 +91,9 @@ export default function InspirationField() {
       <h1 className="bold text-6xl">Project Idea</h1>
       <p className="m-4 max-w-lg text-lg leading-relaxed">
         {isLoading
-          ? "Generating your project idea"
+          ? "Generating your project idea..."
           : response.split("\n\n").map((paragraph, index) => (
               <p key={index} className="my-1">
-                {<strong>{index + 1}. </strong>}
                 {paragraph}
               </p>
             ))}
