@@ -12,6 +12,7 @@ export default function InspirationField() {
   const [topic, setTopic] = useState("");
   const [technology, setTechnology] = useState("");
   const [response, setResponse] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const inspirationGeneration =
     api.inspiration.generateInspiration.useMutation();
@@ -32,6 +33,8 @@ export default function InspirationField() {
       topic,
       technology,
     });
+
+    setButtonDisabled(false);
   }
 
   function saveInspiration() {
@@ -45,6 +48,8 @@ export default function InspirationField() {
       userId: userId,
       inspiration: response,
     });
+
+    setButtonDisabled(true);
   }
 
   useEffect(() => {
@@ -118,7 +123,9 @@ export default function InspirationField() {
       </p>
       <button
         onClick={saveInspiration}
-        className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600"
+        disabled={buttonDisabled}
+        className={`m-2 rounded px-4 py-2 font-bold 
+        ${buttonDisabled ? "bg-gray-500 hover:bg-gray-600" : "bg-blue-500 hover:bg-blue-600"}`}
       >
         Save Idea
       </button>
