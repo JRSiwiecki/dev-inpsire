@@ -3,7 +3,6 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { env } from "~/env";
 import { z } from "zod";
 import { db } from "~/server/db";
-import { type User } from "@prisma/client";
 
 export const inspirationRouter = createTRPCRouter({
   generateInspiration: protectedProcedure
