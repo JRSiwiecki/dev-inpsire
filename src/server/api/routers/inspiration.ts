@@ -64,6 +64,16 @@ export const inspirationRouter = createTRPCRouter({
           return "User could not be found!";
         }
 
+        const possibleInspiration = await db.inspiration.findFirst({
+          where: {
+            savedInspiration: opts.input.inspiration,
+          },
+        });
+
+        if (possibleInspiration !== null) {
+          return "Inspiration already saved!";
+        }
+
         const inspiration = await db.inspiration.create({
           data: {
             user: {
