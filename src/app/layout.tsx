@@ -6,6 +6,8 @@ import Navbar from "~/app/_components/Navbar";
 import { TRPCReactProvider } from "~/trpc/react";
 import { NextAuthProvider } from "./_components/NextAuthProvider";
 
+import { Analytics } from "@vercel/analytics/react";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -27,6 +29,7 @@ export default function RootLayout({
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider>
           <NextAuthProvider>
+            <Analytics />
             <Navbar />
             {children}
           </NextAuthProvider>
