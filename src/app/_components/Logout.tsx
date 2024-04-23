@@ -1,14 +1,14 @@
 import { signOut } from "next-auth/react";
 
-export default function LogOut() {
+export default function Logout() {
   return (
     <>
-      <button
-        className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600"
+      <p
+        className="cursor-pointer text-white hover:text-gray-300"
         onClick={() => signOut()}
       >
         Logout
-      </button>
+      </p>
     </>
   );
 }
