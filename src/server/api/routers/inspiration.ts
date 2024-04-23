@@ -73,7 +73,7 @@ export const inspirationRouter = createTRPCRouter({
           },
         });
 
-        return inspiration.id as string;
+        return inspiration.id;
       },
     ),
 });
