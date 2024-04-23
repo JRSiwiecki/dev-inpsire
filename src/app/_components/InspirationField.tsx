@@ -1,14 +1,24 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Logout from "./Logout";
-import { useRouter } from "next/navigation";
+import { api } from "~/trpc/react";
+import { useSession } from "next-auth/react";
 
 export default function InspirationField() {
-  const router = useRouter();
+  const session = useSession();
+
   const [position, setPosition] = useState("");
   const [topic, setTopic] = useState("");
   const [technology, setTechnology] = useState("");
+  const [response, setResponse] = useState("");
+
+  const inspirationGeneration =
+    api.inspiration.generateInspiration.useMutation();
+
+  const inspirationSaver = api.inspiration.saveInspiration.useMutation();
+
+  const isLoading = inspirationGeneration.isPending;
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -17,10 +27,34 @@ export default function InspirationField() {
       return;
     }
 
-    router.push(
-      `/generated-inspiration?position=${position}&topic=${topic}&technology=${technology}`,
-    );
+    inspirationGeneration.mutate({
+      position,
+      topic,
+      technology,
+    });
   }
+
+  function saveInspiration() {
+    const userId = session.data?.user.id;
+
+    if (response === "" || userId === undefined) {
+      return;
+    }
+
+    inspirationSaver.mutate({
+      userId: userId,
+      inspiration: response,
+    });
+  }
+
+  useEffect(() => {
+    if (
+      inspirationGeneration.isSuccess &&
+      inspirationGeneration.data?.message?.message?.content != null
+    ) {
+      setResponse(inspirationGeneration.data.message.message.content);
+    }
+  }, [inspirationGeneration.isSuccess, inspirationGeneration.data]);
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
@@ -36,6 +70,7 @@ export default function InspirationField() {
               name="position"
               id="position"
               className="text-black"
+              autoComplete="off"
               onChange={(event) => setPosition(event.target.value)}
             />
           </div>
@@ -48,6 +83,7 @@ export default function InspirationField() {
               name="topic"
               id="topic"
               className="text-black"
+              autoComplete="off"
               onChange={(event) => setTopic(event.target.value)}
             />
           </div>
@@ -60,6 +96,7 @@ export default function InspirationField() {
               name="technology"
               id="technology"
               className="text-black"
+              autoComplete="off"
               onChange={(event) => setTechnology(event.target.value)}
             />
           </div>
@@ -69,6 +106,22 @@ export default function InspirationField() {
         </div>
       </form>
       <Logout />
+      <h1 className="bold text-6xl">Project Idea</h1>
+      <p className="m-4 max-w-lg text-lg leading-relaxed">
+        {isLoading
+          ? "Generating your project idea..."
+          : response.split("\n\n").map((paragraph, index) => (
+              <p key={index} className="my-1">
+                {paragraph}
+              </p>
+            ))}
+      </p>
+      <button
+        onClick={saveInspiration}
+        className="m-2 rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600"
+      >
+        Save Idea
+      </button>
     </main>
   );
 }
