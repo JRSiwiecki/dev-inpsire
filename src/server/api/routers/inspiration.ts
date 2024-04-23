@@ -2,6 +2,8 @@ import OpenAI from "openai";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { env } from "~/env";
 import { z } from "zod";
+import { db } from "~/server/db";
+import { type User } from "@prisma/client";
 
 export const inspirationRouter = createTRPCRouter({
   generateInspiration: protectedProcedure
@@ -41,6 +43,34 @@ export const inspirationRouter = createTRPCRouter({
         return {
           message: gptResponse.choices[0],
         };
+      },
+    ),
+
+  saveInspiration: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        inspiration: z.string(),
+      }),
+    )
+    .mutation(
+      async (opts: { input: { userId: string; inspiration: string } }) => {
+        const user = await db.user.findUnique({
+          where: {
+            id: opts.input.userId,
+          },
+        });
+
+        const inspiration = await db.inspiration.create({
+          data: {
+            user: {
+              connect: { id: user.id },
+            },
+            savedInspiration: opts.input.inspiration,
+          },
+        });
+
+        return inspiration.id;
       },
     ),
 });
