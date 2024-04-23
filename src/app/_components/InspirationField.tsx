@@ -37,7 +37,7 @@ export default function InspirationField() {
   function saveInspiration() {
     const userId = session.data?.user.id;
 
-    if (response === "") {
+    if (response === "" || userId === undefined) {
       return;
     }
 
