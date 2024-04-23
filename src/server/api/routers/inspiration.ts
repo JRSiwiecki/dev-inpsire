@@ -49,11 +49,22 @@ export const inspirationRouter = createTRPCRouter({
     .input(
       z.object({
         userId: z.string(),
+        position: z.string(),
+        topic: z.string(),
+        technology: z.string(),
         inspiration: z.string(),
       }),
     )
     .mutation(
-      async (opts: { input: { userId: string; inspiration: string } }) => {
+      async (opts: {
+        input: {
+          userId: string;
+          position: string;
+          topic: string;
+          technology: string;
+          inspiration: string;
+        };
+      }) => {
         const user = await db.user.findUnique({
           where: {
             id: opts.input.userId,
@@ -79,6 +90,9 @@ export const inspirationRouter = createTRPCRouter({
             user: {
               connect: { id: user.id },
             },
+            position: opts.input.position,
+            topic: opts.input.topic,
+            technology: opts.input.technology,
             savedInspiration: opts.input.inspiration,
           },
         });
