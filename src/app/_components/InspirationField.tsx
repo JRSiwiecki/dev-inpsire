@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import Logout from "./Logout";
 import { api } from "~/trpc/react";
 import { useSession } from "next-auth/react";
 
@@ -109,7 +108,6 @@ export default function InspirationField() {
           </button>
         </div>
       </form>
-      <Logout />
       <h1 className="bold text-6xl">Project Idea</h1>
       <p className="m-4 max-w-lg text-lg leading-relaxed">
         {isLoading

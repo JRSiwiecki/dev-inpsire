@@ -1,6 +1,13 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+import Logout from "./Logout";
+import Login from "./Login";
 import Link from "next/link";
 
 const Navbar = () => {
+  const session = useSession();
+
   return (
     <nav className="bg-gray-800">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
@@ -26,6 +33,9 @@ const Navbar = () => {
                   Inspiration
                 </span>
               </Link>
+            </li>
+            <li>
+              {session.status === "authenticated" ? <Logout /> : <Login />}
             </li>
           </ul>
         </div>
