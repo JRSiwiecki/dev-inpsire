@@ -17,6 +17,14 @@ async function getUser(params: Params) {
   });
 }
 
+async function getUserInspirations(params: Params) {
+  return await db.inspiration.findMany({
+    where: {
+      userId: params.id,
+    },
+  });
+}
+
 export async function generateStaticParams() {
   const users = await getUserIds();
 
@@ -49,16 +57,32 @@ export async function generateMetadata({ params }: { params: Params }) {
 
 export default async function Page({ params }: { params: Params }) {
   const user = await getUser(params);
+  const userInspirations = await getUserInspirations(params);
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
       <h1 className="mb-3 text-6xl font-bold">Saved Inspirations</h1>
       <h2 className="mb-3 text-3xl">For {`${user?.name}`}</h2>
-      <p>
+      <section className="flex max-w-2xl flex-col">
         {params.id === "undefined"
           ? "Login to view saved inspirations!"
-          : params.id.toString()}
-      </p>
+          : userInspirations.map((inspiration, index) => (
+              <div className="m-2 rounded-lg border-2 p-2" key={inspiration.id}>
+                <h3 className="text-2xl">
+                  <b>
+                    {inspiration.position}, {inspiration.topic},{" "}
+                    {inspiration.technology}
+                  </b>
+                </h3>
+                <h3>
+                  <b>{inspiration.createdAt.toLocaleDateString()}</b>
+                </h3>
+                <p>
+                  <b>{index}.</b> {inspiration.savedInspiration}
+                </p>
+              </div>
+            ))}
+      </section>
     </main>
   );
 }
