@@ -35,6 +35,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
+              <Link href={`/inspiration/${session.data?.user.id}`}>
+                <span className="cursor-pointer text-white hover:text-gray-300">
+                  View Saved Inspirations
+                </span>
+              </Link>
+            </li>
+            <li>
               {session.status === "authenticated" ? <Logout /> : <Login />}
             </li>
           </ul>
