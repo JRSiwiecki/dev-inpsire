@@ -9,6 +9,14 @@ async function getUserIds() {
   return users;
 }
 
+async function getUser(params: Params) {
+  return await db.user.findUnique({
+    where: {
+      id: params.id,
+    },
+  });
+}
+
 export async function generateStaticParams() {
   const users = await getUserIds();
 
@@ -18,11 +26,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Params }) {
-  const user = await db.user.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
+  const user = await getUser(params);
 
   return {
     title: `${user?.name}'s Inspirations`,
@@ -43,14 +47,18 @@ export async function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default function Page({ params }: { params: Params }) {
+export default async function Page({ params }: { params: Params }) {
+  const user = await getUser(params);
+
   return (
-    <>
+    <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
+      <h1 className="mb-3 text-6xl font-bold">Saved Inspirations</h1>
+      <h2 className="mb-3 text-3xl">For {`${user?.name}`}</h2>
       <p>
         {params.id === "undefined"
           ? "Login to view saved inspirations!"
           : params.id.toString()}
       </p>
-    </>
+    </main>
   );
 }
