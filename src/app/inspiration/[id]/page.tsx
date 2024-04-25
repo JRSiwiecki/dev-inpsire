@@ -1,5 +1,9 @@
 import { db } from "~/server/db";
 
+type Params = {
+  id: string;
+};
+
 async function getUserIds() {
   const users = await db.user.findMany();
   return users;
@@ -13,7 +17,33 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function Page({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: Params }) {
+  const user = await db.user.findUnique({
+    where: {
+      id: params.id,
+    },
+  });
+
+  return {
+    title: user?.name,
+    description: `Saved inspirations for ${user?.name}`,
+    openGraph: {
+      title: user?.name,
+      description: `Saved inspirations for ${user?.name}`,
+      images: [
+        {
+          url: user?.image,
+          width: 800,
+          height: 600,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+export default function Page({ params }: { params: Params }) {
   return (
     <>
       <p>
