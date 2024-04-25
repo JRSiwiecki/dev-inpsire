@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   });
 
   return {
-    title: user?.name,
+    title: `${user?.name}'s Inspirations`,
     description: `Saved inspirations for ${user?.name}`,
     openGraph: {
       title: user?.name,
