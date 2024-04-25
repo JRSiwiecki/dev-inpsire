@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: Params }) {
       <section className="flex max-w-2xl flex-col">
         {params.id === "undefined"
           ? "Login to view saved inspirations!"
-          : userInspirations.map((inspiration, index) => (
+          : userInspirations.map((inspiration) => (
               <div className="m-2 rounded-lg border-2 p-2" key={inspiration.id}>
                 <h3 className="text-2xl">
                   <b>
@@ -77,9 +77,7 @@ export default async function Page({ params }: { params: Params }) {
                 <h3>
                   <b>{inspiration.createdAt.toLocaleDateString()}</b>
                 </h3>
-                <p>
-                  <b>{index}.</b> {inspiration.savedInspiration}
-                </p>
+                <p>{inspiration.savedInspiration}</p>
               </div>
             ))}
       </section>
