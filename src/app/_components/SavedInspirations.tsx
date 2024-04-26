@@ -10,15 +10,17 @@ export default function SavedInspirations() {
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userId = session.data?.user.id;
+  const userId = session.data?.user.id ?? "";
 
   const getInspirationsQuery = api.inspiration.getInspirations.useQuery({
     userId,
   });
 
   useEffect(() => {
-    setInspirations(getInspirationsQuery.data);
-    setIsLoading(false);
+    if (getInspirationsQuery.data !== undefined) {
+      setInspirations(getInspirationsQuery.data);
+      setIsLoading(false);
+    }
   }, [getInspirationsQuery.data]);
 
   const deleteInspirationMutation =
