@@ -1,3 +1,5 @@
+import DeleteButton from "~/app/_components/DeleteButton";
+import SavedInspirations from "~/app/_components/SavedInspirations";
 import { db } from "~/server/db";
 
 type Params = {
@@ -64,22 +66,7 @@ export default async function Page({ params }: { params: Params }) {
       <h1 className="mb-3 text-6xl font-bold">Saved Inspirations</h1>
       <h2 className="mb-3 text-3xl">For {`${user?.name}`}</h2>
       <section className="flex max-w-2xl flex-col">
-        {params.id === "undefined"
-          ? "Login to view saved inspirations!"
-          : userInspirations.map((inspiration) => (
-              <div className="m-2 rounded-lg border-2 p-2" key={inspiration.id}>
-                <h3 className="text-2xl">
-                  <b>
-                    {inspiration.position}, {inspiration.topic},{" "}
-                    {inspiration.technology}
-                  </b>
-                </h3>
-                <h3>
-                  <b>{inspiration.createdAt.toLocaleDateString()}</b>
-                </h3>
-                <p>{inspiration.savedInspiration}</p>
-              </div>
-            ))}
+        <SavedInspirations inspirations={userInspirations} />
       </section>
     </main>
   );

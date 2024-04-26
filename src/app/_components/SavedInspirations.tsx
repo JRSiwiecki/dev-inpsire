@@ -4,7 +4,11 @@ import { type Inspiration } from "@prisma/client";
 import DeleteButton from "./DeleteButton";
 import { useSession } from "next-auth/react";
 
-export default function SavedInspirations({ inspirations }: Inspiration[]) {
+export default function SavedInspirations({
+  inspirations,
+}: {
+  inspirations: Inspiration[];
+}) {
   const session = useSession();
 
   return (
@@ -12,7 +16,7 @@ export default function SavedInspirations({ inspirations }: Inspiration[]) {
       {inspirations.map((inspiration: Inspiration) => (
         <div className="m-2 rounded-lg border-2 p-2" key={inspiration.id}>
           {session.data?.user.id === inspiration.userId && (
-            <DeleteButton savedInspiration={inspiration} />
+            <DeleteButton inspirationId={inspiration.id} />
           )}
           <h3 className="text-2xl">
             <b>
