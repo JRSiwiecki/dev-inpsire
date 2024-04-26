@@ -1,4 +1,3 @@
-import DeleteButton from "~/app/_components/DeleteButton";
 import SavedInspirations from "~/app/_components/SavedInspirations";
 import { db } from "~/server/db";
 

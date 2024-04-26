@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { env } from "~/env";
 import { z } from "zod";
 import { db } from "~/server/db";
