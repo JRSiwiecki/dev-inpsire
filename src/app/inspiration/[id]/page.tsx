@@ -18,14 +18,6 @@ async function getUser(params: Params) {
   });
 }
 
-async function getUserInspirations(params: Params) {
-  return await db.inspiration.findMany({
-    where: {
-      userId: params.id,
-    },
-  });
-}
-
 export async function generateStaticParams() {
   const users = await getUserIds();
 
@@ -58,14 +50,20 @@ export async function generateMetadata({ params }: { params: Params }) {
 
 export default async function Page({ params }: { params: Params }) {
   const user = await getUser(params);
-  const userInspirations = await getUserInspirations(params);
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
       <h1 className="mb-3 text-6xl font-bold">Saved Inspirations</h1>
-      <h2 className="mb-3 text-3xl">For {`${user?.name}`}</h2>
+      {user ? (
+        <h2 className="mb-3 text-3xl">For {user.name}</h2>
+      ) : (
+        <h2 className="mb-3 text-3xl">
+          Login and generate some inspiration to see them saved here!
+        </h2>
+      )}
+
       <section className="flex max-w-2xl flex-col">
-        <SavedInspirations inspirations={userInspirations} />
+        <SavedInspirations />
       </section>
     </main>
   );

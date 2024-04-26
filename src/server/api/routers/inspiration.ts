@@ -116,4 +116,16 @@ export const inspirationRouter = createTRPCRouter({
         });
       },
     ),
+
+  getInspirations: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async (opts: { input: { userId: string } }) => {
+      const userId = opts.input.userId;
+
+      const inspirations = await db.inspiration.findMany({
+        where: { userId },
+      });
+
+      return inspirations;
+    }),
 });
