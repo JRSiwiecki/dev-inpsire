@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { env } from "~/env";
 import { z } from "zod";
 import { db } from "~/server/db";
@@ -117,7 +117,7 @@ export const inspirationRouter = createTRPCRouter({
       },
     ),
 
-  getInspirations: protectedProcedure
+  getInspirations: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(async (opts: { input: { userId: string } }) => {
       const userId = opts.input.userId;

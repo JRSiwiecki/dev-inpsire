@@ -5,15 +5,19 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 
-export default function SavedInspirations() {
+type Params = {
+  userId: string;
+};
+
+export default function SavedInspirations({ userId }: Params) {
   const session = useSession();
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userId = session.data?.user.id ?? "";
+  const id = userId ?? "";
 
   const getInspirationsQuery = api.inspiration.getInspirations.useQuery({
-    userId,
+    userId: id,
   });
 
   useEffect(() => {

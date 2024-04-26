@@ -63,7 +63,11 @@ export default async function Page({ params }: { params: Params }) {
       )}
 
       <section className="flex max-w-2xl flex-col">
-        <SavedInspirations />
+        {user ? (
+          <SavedInspirations userId={user.id} />
+        ) : (
+          <p>Loading user data...</p>
+        )}
       </section>
     </main>
   );
