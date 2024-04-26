@@ -100,4 +100,32 @@ export const inspirationRouter = createTRPCRouter({
         return inspiration.id;
       },
     ),
+
+  deleteInspiration: protectedProcedure
+    .input(z.object({ inspirationId: z.string() }))
+    .mutation(
+      async (opts: {
+        input: {
+          inspirationId: string;
+        };
+      }) => {
+        await db.inspiration.delete({
+          where: {
+            id: opts.input.inspirationId,
+          },
+        });
+      },
+    ),
+
+  getInspirations: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async (opts: { input: { userId: string } }) => {
+      const userId = opts.input.userId;
+
+      const inspirations = await db.inspiration.findMany({
+        where: { userId },
+      });
+
+      return inspirations;
+    }),
 });
