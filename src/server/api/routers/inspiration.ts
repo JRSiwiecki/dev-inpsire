@@ -124,6 +124,9 @@ export const inspirationRouter = createTRPCRouter({
 
       const inspirations = await db.inspiration.findMany({
         where: { userId },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
 
       return inspirations;
