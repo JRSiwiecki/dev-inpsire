@@ -30,7 +30,7 @@ const Navbar = () => {
             <li>
               <Link href="/inspiration">
                 <span className="cursor-pointer text-white hover:text-gray-300">
-                  Inspiration
+                  Generate Inspiration
                 </span>
               </Link>
             </li>
@@ -38,6 +38,13 @@ const Navbar = () => {
               <Link href={`/inspiration/${session.data?.user.id}`}>
                 <span className="cursor-pointer text-white hover:text-gray-300">
                   View Saved Inspirations
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/inspiration/top-inspirations">
+                <span className="cursor-pointer text-white hover:text-gray-300">
+                  Top Inspirations
                 </span>
               </Link>
             </li>
