@@ -131,4 +131,14 @@ export const inspirationRouter = createTRPCRouter({
 
       return inspirations;
     }),
+
+  getAllInspirations: publicProcedure.query(async () => {
+    const inspirations = await db.inspiration.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return inspirations;
+  }),
 });
