@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import InspirationField from "../_components/InspirationField";
 
@@ -12,7 +12,12 @@ export default function Inspiration() {
       {session.status === "authenticated" ? (
         <InspirationField />
       ) : (
-        <p>Login to begin generating inspiration!</p>
+        <p>
+          <b className="cursor-pointer underline" onClick={() => signIn()}>
+            Login
+          </b>{" "}
+          to begin generating inspiration!
+        </p>
       )}
     </main>
   );
