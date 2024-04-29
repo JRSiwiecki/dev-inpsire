@@ -19,7 +19,7 @@ const getInspirations = cache(async () => {
   return inspirations;
 });
 
-export const revalidate = 5;
+export const revalidate = 0;
 
 export default async function TopInspirations() {
   const inspirations = await getInspirations();
