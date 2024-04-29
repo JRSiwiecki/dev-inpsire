@@ -2,6 +2,12 @@ import { type Inspiration } from "@prisma/client";
 import Link from "next/link";
 import { db } from "~/server/db";
 
+export const metadata = {
+  title: "Top Inspirations",
+  description:
+    "View the latest and greatest inspirations that other users have generated!",
+};
+
 export default async function TopInspirations() {
   const inspirations = await db.inspiration.findMany({
     orderBy: {
