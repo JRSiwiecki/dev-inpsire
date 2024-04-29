@@ -1,5 +1,6 @@
 import { type Inspiration } from "@prisma/client";
 import Link from "next/link";
+import { cache } from "react";
 import { db } from "~/server/db";
 
 export const metadata = {
@@ -8,12 +9,20 @@ export const metadata = {
     "View the latest and greatest inspirations that other users have generated!",
 };
 
-export default async function TopInspirations() {
+const getInspirations = cache(async () => {
   const inspirations = await db.inspiration.findMany({
     orderBy: {
       createdAt: "desc",
     },
   });
+
+  return inspirations;
+});
+
+export const revalidate = 5;
+
+export default async function TopInspirations() {
+  const inspirations = await getInspirations();
 
   async function findUser(userId: string) {
     const user = await db.user.findUnique({
