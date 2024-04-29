@@ -64,7 +64,7 @@ export default function InspirationField() {
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
-      <h1 className="mb-3 text-6xl font-bold">Inspiration</h1>
+      <h1 className="mb-3 text-6xl font-bold">Generate Inspiration</h1>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <div className="m-3 self-end">
