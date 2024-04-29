@@ -17,7 +17,7 @@ export default async function TopInspirations() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-800 p-5 text-white">
       <h1 className="mb-4 text-6xl font-bold">Top Inspirations</h1>
-      <section className="flex max-w-2xl flex-col">
+      <section className="max-w-8xl grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2">
         {inspirations.map((inspiration: Inspiration) => (
           <div className="m-2 rounded-lg border-2 p-2" key={inspiration.id}>
             <h3 className="text-2xl">

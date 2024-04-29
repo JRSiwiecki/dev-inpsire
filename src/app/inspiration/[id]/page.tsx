@@ -62,7 +62,7 @@ export default async function Page({ params }: { params: Params }) {
         </h2>
       )}
 
-      <section className="flex max-w-2xl flex-col">
+      <section className="max-w-8xl grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2">
         {user ? (
           <SavedInspirations userId={user.id} />
         ) : (
