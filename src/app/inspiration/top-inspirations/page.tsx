@@ -3,7 +3,11 @@ import Link from "next/link";
 import { db } from "~/server/db";
 
 export default async function TopInspirations() {
-  const inspirations = await db.inspiration.findMany();
+  const inspirations = await db.inspiration.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   async function findUser(userId: string) {
     const user = await db.user.findUnique({
