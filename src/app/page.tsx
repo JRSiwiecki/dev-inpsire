@@ -8,6 +8,10 @@ export default async function Home() {
         Get inspired with new and challenging project ideas for the next bullet
         point on your resume!
       </p>
+      <p className="mb-8 text-lg italic">
+        As a _____ with an interest in _____, come up with a project idea where
+        I can learn how to use _____.
+      </p>
       <Link href="/inspiration">
         <button className="rounded bg-blue-500 px-4 py-2 font-bold hover:bg-blue-600">
           Get Started
