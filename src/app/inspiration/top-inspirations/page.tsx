@@ -1,4 +1,5 @@
 import { type Inspiration } from "@prisma/client";
+import Link from "next/link";
 import { db } from "~/server/db";
 
 export default async function TopInspirations() {
@@ -27,7 +28,9 @@ export default async function TopInspirations() {
               </b>
             </h3>
             <h3 className="text-xl">
-              <b>{findUser(inspiration.userId)}</b>
+              <Link href={`/inspiration/${inspiration.userId}`}>
+                <b>{findUser(inspiration.userId)}</b>
+              </Link>
             </h3>
             <h3>
               <b>{inspiration.createdAt.toLocaleDateString()}</b>
