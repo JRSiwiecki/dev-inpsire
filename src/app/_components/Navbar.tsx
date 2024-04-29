@@ -34,13 +34,17 @@ const Navbar = () => {
                 </span>
               </Link>
             </li>
-            <li>
-              <Link href={`/inspiration/${session.data?.user.id}`}>
-                <span className="cursor-pointer text-white hover:text-gray-300">
-                  View Saved Inspirations
-                </span>
-              </Link>
-            </li>
+
+            {session.status === "authenticated" && (
+              <li>
+                <Link href={`/inspiration/${session.data?.user.id}`}>
+                  <span className="cursor-pointer text-white hover:text-gray-300">
+                    View Saved Inspirations
+                  </span>
+                </Link>
+              </li>
+            )}
+
             <li>
               <Link href="/inspiration/top-inspirations">
                 <span className="cursor-pointer text-white hover:text-gray-300">
